@@ -1,5 +1,6 @@
 repos:
--   repo: local
+-   repo: https://github.com/pycqa/flake8
+    rev: ''
     hooks:
     -   id: flake8
         name: flake8
