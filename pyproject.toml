@@ -5,13 +5,15 @@ description = ""
 authors = ["Hadi Gharibi <hady.gharibi@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = ">=3.8,<3.10"
+scipy = "^1.7.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
 mypy = "^0.910"
 wemake-python-styleguide = "^0.15.3"
 pre-commit = "^2.15.0"
+black = "^21.9b0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
