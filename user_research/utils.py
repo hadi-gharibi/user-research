@@ -4,6 +4,8 @@ from .types.algs import AlgProperties
 
 
 class Register(object):
+    """Singltone class to register functions based on their AlgProperties"""
+
     _instance = None
     _plugins: Dict[AlgProperties, Callable] = {}
 
