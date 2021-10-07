@@ -1,5 +1,6 @@
 from functools import wraps
 from .basics import OneOf, Boolean, OptionalBoolean
+from varname import argname
 
 
 class AlgProperties:
@@ -39,19 +40,30 @@ class AlgProperties:
         self.number_of_groups = number_of_groups
         self.validation()
 
+    @staticmethod
+    def mutually_exclusive(x, y):
+        x_name, y_name = argname("x", "y")
+        is_x = 1 if x else 0
+        is_y = 1 if y else 0
+        if sum([is_x, is_y]) != 1:
+            raise ValueError(
+                f"You can only have '{x_name}' = {x!r} or '{y_name}' = {y!r}. "
+                f"They are mutually exclusive."
+            )
+
     def validation(
         self,
     ):
         if self.analysis_type == "precision-estimate":
-            assert self.groups is None
-            assert self.number_of_groups is None
+            self.mutually_exclusive(self.analysis_type, self.groups)
+            self.mutually_exclusive(self.number_of_groups)
         if self.analysis_type == "compare":
-            assert self.is_against_benchmark is None
-            assert self.is_task_time is None
+            self.mutually_exclusive(self.analysis_type, self.is_against_benchmark)
+            self.mutually_exclusive(self.analysis_type, self.is_task_time)
         if self.groups == "same-group":
             assert self.analysis_type == "compare"
         if self.is_discrete:
-            assert self.is_task_time is None
+            self.mutually_exclusive(self.is_task_time, self.is_discrete)
 
     def __hash__(self):
         return hash(repr(self))
