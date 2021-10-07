@@ -3,7 +3,7 @@ from .basics import OneOf, Boolean, OptionalBoolean
 from varname import argname
 
 
-class AlgProperties:
+class AlgorithmProperties:
     is_discrete = Boolean()
     analysis_type = OneOf("compare", "precision-estimate")
     is_against_benchmark = OptionalBoolean()
