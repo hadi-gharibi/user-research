@@ -7,6 +7,7 @@ authors = ["Hadi Gharibi <hady.gharibi@gmail.com>"]
 [tool.poetry.dependencies]
 python = ">=3.8,<3.10"
 scipy = "^1.7.1"
+varname = "^0.8.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
