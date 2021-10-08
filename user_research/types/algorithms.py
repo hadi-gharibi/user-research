@@ -26,7 +26,8 @@ class AlgorithmProperties:
         Args:
             is_discrete (Boolean): dis vs cont
             analysis_type (OneOf): ['compare', 'precision-estimate']
-            is_against_benchmark (OptionalBoolean): against benchmark of comparing two or more gps
+            is_against_benchmark (OptionalBoolean): are we comparing against a benchmark or \
+                comparing against two or more groups
             is_task_time (OptionalBoolean): task or not task
             groups (OneOf): ['same-group', 'diffrent-groups', None]
             number_of_groups (OneOf): ['two', 'three-or-more', None]
