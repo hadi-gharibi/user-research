@@ -1,14 +1,15 @@
-from ..utils import Register
-import os
-import sys
+from ..utils import AlgorithmRegister
 
-algorithms = Register()
-path = os.path.dirname(os.path.abspath(__file__))
+algorithms = AlgorithmRegister()
+__all__ = []
 
-for py in [
-    f[:-3] for f in os.listdir(path) if f.endswith(".py") and f != "__init__.py"
-]:
-    mod = __import__(".".join([__name__, py]), fromlist=[py])
-    classes = [getattr(mod, x) for x in dir(mod) if isinstance(getattr(mod, x), type)]
-    for cls in classes:
-        setattr(sys.modules[__name__], cls.__name__, cls)
+
+def export_to_all(defn):
+    globals()[defn.__name__] = defn
+    __all__.append(defn.__name__)
+    return defn
+
+
+from . import test1
+from . import test2
+from . import conf_interval
