@@ -43,7 +43,7 @@ class StatisticalTestFamily(Base):
     def validation(self):
         if self.analysis_type == "precision-estimate":
             self.mutually_exclusive(self.analysis_type, self.groups)
-            self.mutually_exclusive(self.number_of_groups)
+            self.mutually_exclusive(self.analysis_type, self.number_of_groups)
         if self.analysis_type == "compare":
             self.mutually_exclusive(self.analysis_type, self.is_against_benchmark)
             self.mutually_exclusive(self.analysis_type, self.is_task_time)
