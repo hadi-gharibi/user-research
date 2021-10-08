@@ -51,9 +51,7 @@ class AlgorithmProperties:
                 f"They are mutually exclusive."
             )
 
-    def validation(
-        self,
-    ):
+    def validation(self):
         if self.analysis_type == "precision-estimate":
             self.mutually_exclusive(self.analysis_type, self.groups)
             self.mutually_exclusive(self.number_of_groups)
