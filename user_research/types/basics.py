@@ -44,10 +44,10 @@ class Base:
     def __hash__(self):
         return hash(repr(self))
 
-    def __call__(self, func):
-        @wraps(func)
+    def __call__(self, funcs):
+        @wraps(funcs)
         def wrapper(*args):
-            value = func(*args)
+            value = funcs(*args)
             return value
 
         return self, wrapper
