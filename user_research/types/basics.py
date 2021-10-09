@@ -50,7 +50,7 @@ class Base:
             value = funcs(*args)
             return value
 
-        return self, wrapper
+        return wrapper
 
     def __repr__(self):
         return (
