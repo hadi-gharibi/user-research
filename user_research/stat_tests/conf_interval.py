@@ -10,8 +10,7 @@ from scipy import stats
 import math
 
 
-@AlgorithmRegister
-@StatisticalTestType(
+@AlgorithmRegister(
     is_discrete=True,
     analysis_type="precision-estimate",
     is_against_benchmark=False,
@@ -23,7 +22,11 @@ class CompletionRate:
         return "Adjusted-Wald Binomial Confidence Interval"
 
     def fit(
-        self, data: pd.DataFrame, col: str, sucess: Union[int, str] = 1
+        self,
+        data: pd.DataFrame,
+        confident: float,
+        col: str,
+        sucess: Union[int, str] = 1,
     ) -> Tuple[float, float]:
         """Adjusted-Wald Binomial Confidence Interval for binary data.
 
@@ -38,12 +41,16 @@ class CompletionRate:
         """
         count = len(data[data[col] == sucess])
         nobs = len(data)
-        ci_low, ci_upp = proportion_confint(count=count, nobs=nobs, method="wilson")
+        ci_low, ci_upp = proportion_confint(
+            count=count,
+            nobs=nobs,
+            alpha=1 - confident,
+            method="wilson",
+        )
         return ci_low, ci_upp
 
 
-@AlgorithmRegister
-@StatisticalTestType(
+@AlgorithmRegister(
     is_discrete=False,
     analysis_type="precision-estimate",
     is_against_benchmark=False,
@@ -60,8 +67,7 @@ class TTest:
         return ci_low, ci_upp
 
 
-@AlgorithmRegister
-@StatisticalTestType(
+@AlgorithmRegister(
     is_discrete=False,
     analysis_type="precision-estimate",
     is_against_benchmark=False,
