@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from functools import wraps
 from varname import argname
+from enum import Enum, auto
 
 
 class Validator(ABC):
@@ -40,6 +41,18 @@ class OptionalBoolean(Validator):
             raise ValueError(f"Expected {value!r} to be True or False")
 
 
+class AnalysisType(Enum):
+    COMPARE = (auto(),)
+    PRECISION_ESTIMATE = (auto(),)
+    NOT_APPLICABLE = None
+
+
+class GroupType(Enum):
+    FROM_THE_SAME_GROUP = (auto(),)
+    FROM_DIFFRENT_GROUPS = (auto(),)
+    NOT_APPLICABLE = None
+
+
 class Base:
     def __hash__(self):
         return hash(repr(self))
@@ -64,9 +77,14 @@ class Base:
 
     @staticmethod
     def mutually_exclusive(x, y):
+        def is_(x):
+            x = getattr(x, "value", x)
+            flag = 1 if x is not None else 0
+            return flag
+
         x_name, y_name = argname("x", "y")
-        is_x = 1 if x else 0
-        is_y = 1 if y else 0
+        is_x = is_(x)
+        is_y = is_(y)
         if sum([is_x, is_y]) != 1:
             raise ValueError(
                 f"You can only have '{x_name}' = {x!r} or '{y_name}' = {y!r}. "
