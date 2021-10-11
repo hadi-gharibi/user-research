@@ -10,6 +10,4 @@ def export_to_all(defn):
     return defn
 
 
-from . import test1
-from . import test2
 from . import conf_interval
