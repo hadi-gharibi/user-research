@@ -21,7 +21,8 @@ class AlgorithmRegister(object):
         return cls._instance
 
     def __call__(self, func):
-        obj = deepcopy(self.__class__._buffer)
+        # obj = deepcopy(self.__class__._buffer)
+        obj = self.__class__._buffer
         if obj:
             if self._plugins.get(obj, None) is None:
 
