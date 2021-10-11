@@ -1,22 +1,24 @@
-from .basics import OneOf, Boolean, OptionalBoolean, Base
+from .basics import OneOf, Boolean, OptionalBoolean, Base, AnalysisType, GroupType
 
 
 class StatisticalTestFamily(Base):
     is_discrete = Boolean()
-    analysis_type = OneOf("compare", "precision-estimate")
+    # analysis_type = OneOf("compare", "precision-estimate")
     is_against_benchmark = OptionalBoolean()
     is_task_time = OptionalBoolean()
-    groups = OneOf("same-group", "diffrent-groups", None)
+    # groups = OneOf("same-group", "diffrent-groups", None)
     number_of_groups = OneOf("two", "three-or-more", None)
 
     def __init__(
         self,
         *,
         is_discrete: Boolean,
-        analysis_type: OneOf,
+        # analysis_type: OneOf,
+        analysis_type: AnalysisType,
         is_against_benchmark: OptionalBoolean = None,
         is_task_time: OptionalBoolean = None,
-        groups: OneOf = None,
+        # groups: OneOf,
+        groups: GroupType = GroupType.NOT_APPLICABLE,
         number_of_groups: OneOf = None,
         **kwargs
     ):
@@ -41,14 +43,14 @@ class StatisticalTestFamily(Base):
         self.validation()
 
     def validation(self):
-        if self.analysis_type == "precision-estimate":
+        if self.analysis_type == AnalysisType.PRECISION_ESTIMATE:
             self.mutually_exclusive(self.analysis_type, self.groups)
             self.mutually_exclusive(self.analysis_type, self.number_of_groups)
-        if self.analysis_type == "compare":
+        if self.analysis_type == AnalysisType.COMPARE:
             self.mutually_exclusive(self.analysis_type, self.is_against_benchmark)
             self.mutually_exclusive(self.analysis_type, self.is_task_time)
-        if self.groups == "same-group":
-            assert self.analysis_type == "compare"
+        if self.groups == GroupType.FROM_THE_SAME_GROUP:
+            assert self.analysis_type == AnalysisType.COMPARE
         if self.is_discrete:
             self.mutually_exclusive(self.is_task_time, self.is_discrete)
 
