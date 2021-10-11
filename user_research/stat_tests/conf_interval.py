@@ -8,11 +8,12 @@ import statsmodels.stats.api as sms
 import numpy as np
 from scipy import stats
 import math
+from ..types.basics import AnalysisType
 
 
 @AlgorithmRegister(
     is_discrete=True,
-    analysis_type="precision-estimate",
+    analysis_type=AnalysisType.PRECISION_ESTIMATE,
     is_against_benchmark=False,
 )
 @export_to_all
@@ -52,7 +53,7 @@ class CompletionRate:
 
 @AlgorithmRegister(
     is_discrete=False,
-    analysis_type="precision-estimate",
+    analysis_type=AnalysisType.PRECISION_ESTIMATE,
     is_against_benchmark=False,
     is_task_time=False,
 )
@@ -69,7 +70,7 @@ class TTest:
 
 @AlgorithmRegister(
     is_discrete=False,
-    analysis_type="precision-estimate",
+    analysis_type=AnalysisType.PRECISION_ESTIMATE,
     is_against_benchmark=False,
     is_task_time=True,
 )
